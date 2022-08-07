@@ -16,6 +16,9 @@ use App\Http\Controllers\Login;
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/dashboard', function () {
+    return view('index');
+});
 
 Route::get('/login', [ Login::class, 'login' ]);
 Route::post('/login_check', [ Login::class, 'login_check' ])->name('login_check');
