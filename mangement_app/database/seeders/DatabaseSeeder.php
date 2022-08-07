@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\admin;
+use App\Models\User;
+use Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        admin::create([
+            'name' => 'admin' ,
+            'email' => 'smsmspy@gmail.com',
+            'password' => Hash::make('admin'),
+        ]);
+        for ($i = 0; $i < 10; $i++) {
+            User::create([
+                'name' => 'user' . $i,
+                'email' => 'user' . $i . '@gmail.com',
+                'password' => Hash::make('user12345@'),
+            ]);
+        }
+
     }
 }

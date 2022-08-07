@@ -94,3 +94,6 @@
             </nav>
         </div>
         <!-- Sidebar End -->
+
+        <!-- Main Content Start -->
+        <div class="content">

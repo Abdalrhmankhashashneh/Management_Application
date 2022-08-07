@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class activities extends Model
 {
     use HasFactory;
+    protected $fillable = ['user_id', 'leave_id', 'start', 'end'];
 }
