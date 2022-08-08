@@ -1,8 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
+use App\Models\activities;
+use App\Models\request;
+use App\Models\vacation;
+use App\Models\offdayuser;
+use Validator;
 
-use Illuminate\Http\Request;
+
+use Hash;
+use Session;
+use DateTime;
+
+use Illuminate\Http\Request as req;
 
 class UserControler extends Controller
 {
@@ -13,72 +24,18 @@ class UserControler extends Controller
      */
     public function index()
     {
-        //
+
+        $activities = activities::join('leavetypes', 'leavetypes.id', '=', 'activities.leave_id')
+            ->join('users', 'users.id', '=', 'activities.user_id')
+            ->select('activities.*', 'leavetypes.name as leave_name', 'users.name as user_name')
+            ->orderBy('activities.id', 'desc')->where('user_id', Session::get('user_id'))
+            ->get();
+
+            $now = new DateTime();
+            $user = User::where('id', Session::get('user_id'))->first();
+
+            return view('index', compact('user' , 'activities'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

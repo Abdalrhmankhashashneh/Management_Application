@@ -9,5 +9,5 @@ class offdayuser extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'data' ];
+    protected $fillable = ['user_id', 'date', 'period' , 'vacation_id'];
 }

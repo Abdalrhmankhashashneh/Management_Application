@@ -94,11 +94,13 @@ class DatabaseSeeder extends Seeder
         request::create([
             'user_id' => 1,
             'vacation_id' => 1,
+            'date' => '2020-08-09',
             'status' => 'pending',
         ]);
         request::create([
             'user_id' => 2,
             'vacation_id' => 2,
+            'date' => '2020-08-09',
             'status' => 'pending',
         ]);
 

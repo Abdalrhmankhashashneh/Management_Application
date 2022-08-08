@@ -65,17 +65,25 @@
                             <span>Admin</span>
                         @else
                             @if (Session::has('user_id'))
-                                <h6 class="mb-0"></h6>
-                                <span>Admin</span>
+                                <h6 class="mb-0">{{ $user->name }}</h6>
+                                <span>User</span>
                             @endif
                         @endif
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="{{ route('dashboard') }}" class="nav-item nav-link active"><i
-                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    @if (Session::has('admin_id'))
+                        <a href="{{ route('dashboard') }}" class="nav-item nav-link "><i
+                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    @else
+                        <a href="{{ route('user_dashboard') }}" class="nav-item nav-link "><i
+                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    @endif
+
                     <a href="{{ route('vacation') }}" class="nav-item nav-link "><i
-                            class="fa fa-tachometer-alt me-2"></i>Vacation</a>
+                            class="fa fa-plane me-2"></i>Vacation</a>
+                    <a href="{{ route('offusers') }}" class="nav-item nav-link "><i class="fa fa-coffee me-2"></i>Off
+                        Users</a>
 
 
                     <a href="{{ route('logout') }}" class="nav-item nav-link"><i

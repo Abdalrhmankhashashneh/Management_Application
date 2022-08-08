@@ -17,7 +17,9 @@ class CreateOffdayusersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->date('date')->unique();
+            $table->unsignedBigInteger('vacation_id');
+            $table->foreign('vacation_id')->references('id')->on('vacations')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('date')->unique();
             $table->string('period')->default('1');
             $table->timestamps();
         });
