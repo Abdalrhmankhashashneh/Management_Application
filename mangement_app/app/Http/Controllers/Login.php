@@ -39,4 +39,15 @@ class Login extends Controller
         }
     }
 
+    public function logout()
+    {
+        if(Session::has('user_id')){
+            Session::forget('user_id');
+        }
+        if(Session::has('admin_id')){
+            Session::forget('admin_id');
+        }
+        return redirect('/login');
+    }
+
 }

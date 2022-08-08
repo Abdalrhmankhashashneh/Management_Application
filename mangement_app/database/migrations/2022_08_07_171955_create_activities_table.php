@@ -21,6 +21,7 @@ class CreateActivitiesTable extends Migration
             $table->foreign('leave_id')->references('id')->on('leavetypes')->onDelete('cascade')->onUpdate('cascade');
             $table->string('start');
             $table->string('end');
+            $table->date('date');
             $table->timestamps();
         });
     }
