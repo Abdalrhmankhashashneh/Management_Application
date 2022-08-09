@@ -8,6 +8,7 @@ use App\Models\activities;
 use App\Models\request;
 use App\Models\vacation;
 use App\Models\offdayuser;
+use App\Models\leavetype as Leavetypes;
 use Validator;
 
 
@@ -33,12 +34,14 @@ class AdminController extends Controller
             ->select('activities.*', 'leavetypes.name as leave_name', 'users.name as user_name')
             ->orderBy('activities.id', 'desc')
             ->get();
-            $now = new DateTime();
+
+
+        $leavetypes=leavetypes::all();
 
 
             $admin = admin::where('id', Session::get('admin_id'))->first();
 
-            return view('index', compact('users' , 'activities' , 'admin'));
+            return view('index', compact('users' , 'activities' , 'admin' , 'leavetypes' ));
     }
 
     public function create_user()

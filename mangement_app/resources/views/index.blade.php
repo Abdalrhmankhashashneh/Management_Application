@@ -60,6 +60,77 @@
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                         <tr class="text-dark">
+                            <th scope="col">#</th>
+                            <th scope="col">leave type </th>
+                            <th scope="col">description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach ($leavetypes as $key => $leavetype)
+                            <tr>
+                                <td>{{ $key }}</td>
+                                <td>{{ $leavetype->name }}</td>
+                                <td>{{ $leavetype->description }}</td>
+                                @if (Session::has('admin_id'))
+                                    <td><a href="" class="btn btn-warning">edit
+                                        </a></td>
+                                    <td>
+                                        <form action="" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="submit" class="btn btn-danger" value="delete">
+                                        </form>
+                                    </td>
+                                @endif
+                            </tr>
+                        @endforeach
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @if (Session::has('user_id'))
+        <div class="container-fluid pt-4 px-4">
+            <div class="col-sm-12 col-xl-6">
+                <div class="bg-light rounded h-100 p-4">
+                    <h6 class="mb-4">Request Vacation</h6>
+                    <form action="{{ route('start_end_clock') }}" method="post">
+                        @csrf
+                        @if (Session::has('clock'))
+                            <h4 class="text-danger">You are clocked in : @php echo  date('H:m:s'); @endphp</h4>
+                            <button type="submit" class="btn btn-danger">Stop</button>
+                        @else
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                                    name="leave_id">
+                                    @foreach ($leavetypes as $key => $leavetype)
+                                        @if (!$key == 0)
+                                            <option value="{{ $leavetype->id }}">{{ $leavetype->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingSelect">Choise Leave type</label>
+                            </div>
+                            <button type="submit" class="btn btn-success">Start</button>
+                        @endif
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0"> Activities </h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark">
                             <th scope="col">employee</th>
                             <th scope="col">leave type </th>
                             <th scope="col">start</th>

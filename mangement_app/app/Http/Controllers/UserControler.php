@@ -7,6 +7,7 @@ use App\Models\request;
 use App\Models\vacation;
 use App\Models\offdayuser;
 use Validator;
+use App\Models\leavetype as Leavetypes;
 
 
 use Hash;
@@ -32,9 +33,32 @@ class UserControler extends Controller
             ->get();
 
             $now = new DateTime();
+            $leavetypes=leavetypes::all();
             $user = User::where('id', Session::get('user_id'))->first();
 
-            return view('index', compact('user' , 'activities'));
+            return view('index', compact('user' , 'activities' , 'leavetypes'));
+    }
+
+    public function start_end_clock(req $request)
+    {
+        if(Session::has('clock'))
+        {
+            activities::create([
+                'user_id' => Session::get('user_id'),
+                'leave_id' => Session::get('leave_id'),
+                'start' => Session::get('clock'),
+                'end' => date('H:i:s'),
+                'date' => date('Y-m-d'),
+            ]);
+            Session::forget('clock');
+            Session::forget('leave_id');
+        }
+        else
+        {
+            Session::put('clock', date('H:i:s'));
+            Session::put('leave_id', $request->leave_id);
+        }
+        return redirect()->back();
     }
 
 

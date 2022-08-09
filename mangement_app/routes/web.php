@@ -42,6 +42,7 @@ Route::post('/admin/vacation/add' , [AdminController::class , 'add_vacation'])->
 Route::delete('/admin/vacation/delete/{id}' , [AdminController::class , 'delete_vacation'])->name('delete_vacation')->middleware('isLogedIn');
 Route::get('/user/vacation/create' , [AdminController::class , 'request_vacation'])->name('request_vacation')->middleware('isLogedIn');
 Route::post('/user/vacation/add' , [AdminController::class , 'add_request'])->name('add_request')->middleware('isLogedIn');
+Route::post('/user/leave/add' , [UserControler::class , 'start_end_clock'])->name('start_end_clock')->middleware('isLogedIn');
 // **************************** vacations ****************************
 
 Route::get('/user/dashboard' , [UserControler::class , 'index'])->name('user_dashboard')->middleware('isLogedIn');
