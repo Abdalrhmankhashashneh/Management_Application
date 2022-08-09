@@ -215,6 +215,62 @@ public function delete_vacation($id){
 }
 }
 
+public function edit_leave($id){
+    if(Session::has('admin_id')){
+        if($id == 1 ){
+            return redirect()->route('dashboard')->with('error', 'you can not update or delete this leave');
+        }
+    $leavetype = Leavetypes::find($id);
+    $admin = admin::where('id', Session::get('admin_id'))->first();
+    return view('edit_leave', compact('leavetype' , 'admin'));
+}
+}
+
+public function update_leave( req $request, $id){
+
+    if(Session::has('admin_id')){
+        if($id == 1 ){
+            return redirect()->route('dashboard')->with('error', 'you can not update or delete this leave');
+        }
+        $leave = Leavetypes::find($id);
+    $leave->update([
+        'name' =>$request->name,
+        'description' => $request->description,
+    ]);
+    return redirect()->route('dashboard')->with('success_update', 'leavetype has been updated');
+}
+
+}
+
+public function delete_leave($id){
+    if(Session::has('admin_id')){
+        if($id == 1 ){
+            return redirect()->route('dashboard')->with('error', 'you can not update or delete this leave');
+        }
+    Leavetypes::destroy($id);
+    return redirect()->route('dashboard')->with('success_delete', 'leavetype has been deleted');
+}
+}
+
+public function create_leave_type(){
+    if(Session::has('admin_id')){
+        $admin = admin::where('id', Session::get('admin_id'))->first();
+        return view('add_leave', compact('admin'));
+    }
+}
+
+public function add_leave_type(req $request)
+{
+    if(Session::has('admin_id')){
+    Leavetypes::create([
+        'name' => $request->name,
+        'description' => $request->description,
+    ]);
+
+    return redirect()->route('dashboard')->with('success_add', 'leavetype has been added');
+}
+}
+
 public function offusers(){
     if(Session::has('admin_id')){
     $offusers = offdayuser::join('users', 'users.id', '=', 'offdayusers.user_id')

@@ -42,7 +42,16 @@ Route::post('/admin/vacation/add' , [AdminController::class , 'add_vacation'])->
 Route::delete('/admin/vacation/delete/{id}' , [AdminController::class , 'delete_vacation'])->name('delete_vacation')->middleware('isLogedIn');
 Route::get('/user/vacation/create' , [AdminController::class , 'request_vacation'])->name('request_vacation')->middleware('isLogedIn');
 Route::post('/user/vacation/add' , [AdminController::class , 'add_request'])->name('add_request')->middleware('isLogedIn');
-Route::post('/user/leave/add' , [UserControler::class , 'start_end_clock'])->name('start_end_clock')->middleware('isLogedIn');
 // **************************** vacations ****************************
+
+
+// **************************** clocking ****************************
+Route::post('/user/leave/add' , [UserControler::class , 'start_end_clock'])->name('start_end_clock')->middleware('isLogedIn');
+Route::get('/user/leavetype/create' , [AdminController::class , 'create_leave_type'])->name('create_leave_type')->middleware('isLogedIn');
+Route::post('/user/leavetype/add' , [AdminController::class , 'add_leave_type'])->name('add_leave_type')->middleware('isLogedIn');
+Route::get('/admin/leave/edit/{id}' , [AdminController::class , 'edit_leave'])->name('edit_leave')->middleware('isLogedIn');
+Route::put('/admin/leave/update/{id}' , [AdminController::class , 'update_leave'])->name('update_leave')->middleware('isLogedIn');
+Route::delete('/admin/leave/delete/{id}' , [AdminController::class , 'delete_leave'])->name('delete_leave')->middleware('isLogedIn');
+// **************************** clocking ****************************
 
 Route::get('/user/dashboard' , [UserControler::class , 'index'])->name('user_dashboard')->middleware('isLogedIn');

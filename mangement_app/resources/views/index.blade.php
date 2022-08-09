@@ -52,9 +52,29 @@
         </div>
     </div>
     <div class="container-fluid pt-4 px-4">
+        @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+        @if (session('success_update'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success_update') }}
+            </div>
+        @endif
+        @if (session('success_delete'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success_delete') }}
+            </div>
+        @endif
+        @if (session('success_add'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success_add') }}
+            </div>
+        @endif
         <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0"> Activities </h6>
+                <h6 class="mb-0"> Leavetypes </h6>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -69,14 +89,14 @@
 
                         @foreach ($leavetypes as $key => $leavetype)
                             <tr>
-                                <td>{{ $key }}</td>
+                                <td>{{ $key + 1 }}</td>
                                 <td>{{ $leavetype->name }}</td>
                                 <td>{{ $leavetype->description }}</td>
                                 @if (Session::has('admin_id'))
-                                    <td><a href="" class="btn btn-warning">edit
+                                    <td><a href="{{ route('edit_leave', $leavetype->id) }}" class="btn btn-warning">edit
                                         </a></td>
                                     <td>
-                                        <form action="" method="POST">
+                                        <form action="{{ route('delete_leave', $leavetype->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" class="btn btn-danger" value="delete">
@@ -87,6 +107,9 @@
                         @endforeach
 
 
+                        @if (Session::has('admin_id'))
+                            <td><a href="{{ route('create_leave_type') }}" class="btn btn-success">add leavetype </a></td>
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -96,7 +119,7 @@
         <div class="container-fluid pt-4 px-4">
             <div class="col-sm-12 col-xl-6">
                 <div class="bg-light rounded h-100 p-4">
-                    <h6 class="mb-4">Request Vacation</h6>
+                    <h6 class="mb-4"> Breakes</h6>
                     <form action="{{ route('start_end_clock') }}" method="post">
                         @csrf
                         @if (Session::has('clock'))
