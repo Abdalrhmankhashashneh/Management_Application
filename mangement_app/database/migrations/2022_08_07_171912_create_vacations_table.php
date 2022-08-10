@@ -18,6 +18,7 @@ class CreateVacationsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('period')->default('1');
+            $table->string('limit')->default('5');
             $table->timestamps();
         });
     }

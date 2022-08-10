@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class vacation extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'description', 'period' ];
+    protected $fillable = ['name', 'description', 'period', 'limit'];
 }

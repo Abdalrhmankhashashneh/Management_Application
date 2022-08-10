@@ -103,20 +103,24 @@ class AdminController extends Controller
             ->select('requests.*', 'users.name as user_name' , 'vacations.name as vacation_name')
             ->orderBy('requests.id', 'desc')
             ->get();
-        $vacations = vacation::all();
-        $admin = admin::where('id', Session::get('admin_id'))->first();
-        return view('vacation', compact('requests' , 'admin' , 'vacations'));
-    }
-    else{
-        $requests = request::join('users', 'users.id', '=', 'requests.user_id')
-        ->join( 'vacations', 'vacations.id', '=', 'requests.vacation_id')
+
+            $vacations = vacation::all();
+            $admin = admin::where('id', Session::get('admin_id'))->first();
+            return view('vacation', compact('requests' , 'admin' , 'vacations' ));
+        }
+        else{
+            $requests = request::join('users', 'users.id', '=', 'requests.user_id')
+            ->join( 'vacations', 'vacations.id', '=', 'requests.vacation_id')
             ->select('requests.*', 'users.name as user_name' , 'vacations.name as vacation_name')
             ->where('requests.user_id', Session::get('user_id'))
             ->orderBy('requests.id', 'desc')
             ->get();
+            $total = vacation::sum('limit');
+            $total_used = offdayuser::where('user_id' , Session::get('user_id') )->get();
+            $total_used = $total_used->count();
             $vacations = vacation::all();
             $user = User::where('id', Session::get('user_id'))->first();
-            return view('vacation', compact('requests' , 'user' , 'vacations'));
+            return view('vacation', compact('requests' , 'user' , 'vacations' ,'total' , 'total_used'));
     }
     }
 
@@ -177,9 +181,10 @@ public function create_vacation(){
 public function add_vacation(req $request)
 {
     if(Session::has('admin_id')){
-    vacation::create([
-        'name' => $request->name,
-        'description' => $request->description,
+        vacation::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'limit' => request()->limit,
     ]);
 
     return redirect()->route('vacation')->with('success_add', 'vacation has been added');
@@ -201,6 +206,7 @@ public function update_vacation($id){
     $vacation->update([
         'name' => request()->name,
         'description' => request()->description,
+        'limit' => request()->limit,
     ]);
     return redirect()->route('vacation')->with('success_update', 'vacation has been updated');
 }

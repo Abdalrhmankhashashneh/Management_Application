@@ -2,6 +2,29 @@
 
 @section('content')
     <div class="container-fluid pt-4 px-4">
+        @if (Session::has('user_id'))
+            <div class="row">
+
+                <div class="col-sm-6 col-xl-3">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                        <i class="fa fa-chart-area fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <p class="mb-2">Total Vacations </p>
+                            <h6 class="mb-0">{{ $total }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                        <i class="fa fa-chart-area fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <p class="mb-2">Totaly used </p>
+                            <h6 class="mb-0">{{ $total_used }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         @if (session('success_update'))
             <div class="alert alert-success ">
                 {{ session('success_update') }}
@@ -28,6 +51,7 @@
                             <th scope="col">name</th>
                             <th scope="col">description</th>
                             <th scope="col">period (days)</th>
+                            <th scope="col">limit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,6 +61,7 @@
                                 <td>{{ $vacation->name }}</td>
                                 <td>{{ $vacation->description }}</td>
                                 <td>{{ $vacation->period }}</td>
+                                <td>{{ $vacation->limit }}</td>
                                 @if (Session::has('admin_id'))
                                     <td><a href="{{ route('edit_vacation', $vacation->id) }}"
                                             class="btn btn-success">edit</a>
@@ -125,10 +150,12 @@
                             </tr>
                         @endforeach
                         @if (Session::has('user_id'))
-                            <td>
-                                <a class="btn btn-success" href="{{ route('request_vacation') }}">Request
-                                    Vacation</a>
-                            </td>
+                            @if ($total >= $total_used)
+                                <td>
+                                    <a class="btn btn-success" href="{{ route('request_vacation') }}">Request
+                                        Vacation</a>
+                                </td>
+                            @endif
                         @endif
 
                     </tbody>

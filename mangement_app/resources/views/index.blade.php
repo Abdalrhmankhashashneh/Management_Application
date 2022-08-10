@@ -119,11 +119,11 @@
         <div class="container-fluid pt-4 px-4">
             <div class="col-sm-12 col-xl-6">
                 <div class="bg-light rounded h-100 p-4">
-                    <h6 class="mb-4"> Breakes</h6>
+                    <h6 class="mb-4">Breakes</h6>
                     <form action="{{ route('start_end_clock') }}" method="post">
                         @csrf
                         @if (Session::has('clock'))
-                            <h4 class="text-danger">You are clocked in : @php echo  date('H:m:s'); @endphp</h4>
+                            <h4 class="text-danger">You start break at : @php echo  date('H:m:s'); @endphp</h4>
                             <button type="submit" class="btn btn-danger">Stop</button>
                         @else
                             <div class="form-floating mb-3">

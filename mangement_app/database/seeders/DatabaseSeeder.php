@@ -85,10 +85,12 @@ class DatabaseSeeder extends Seeder
         vacation::create([
             'name' => 'sick off',
             'description' => 'description',
+            'limit' => '5',
         ]);
         vacation::create([
             'name' => 'vacation off',
             'description' => 'description',
+            'limit' => '10',
         ]);
 
         request::create([

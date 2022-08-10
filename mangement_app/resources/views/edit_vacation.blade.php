@@ -18,6 +18,11 @@
                     <label for="floatingInput">description</label>
                 </div>
                 <div class="form-floating mb-3">
+                    <input type="number" min="1" max="30" class="form-control" id="floatingInput"
+                        placeholder="" required name="limit" value="{{ $vacation->limit }}">
+                    <label for="floatingInput">limit</label>
+                </div>
+                <div class="form-floating mb-3">
                     <input type="submit" class=" btn btn-success" id="floatingInput" value="Update Vacation">
 
                 </div>
