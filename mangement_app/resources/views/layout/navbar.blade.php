@@ -86,7 +86,7 @@
                         Users</a>
 
 
-                    <a href="{{ route('logout') }}" class="nav-item nav-link"><i
+                    <a href="{{ route('logout') }}" class="nav-item nav-link text-danger"><i
                             class="fas fa-sign-out-alt"></i>Logout</a>
 
                 </div>

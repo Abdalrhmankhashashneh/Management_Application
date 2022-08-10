@@ -9,7 +9,11 @@
         @endif
         <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0"> Users </h6>
+                @if (Session::has('user_id'))
+                    <h6 class="mb-0">User Information </h6>
+                @else
+                    <h6 class="mb-0"> Users </h6>
+                @endif
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
